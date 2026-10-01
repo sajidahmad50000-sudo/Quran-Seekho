@@ -1,0 +1,41 @@
+name: Build Nova APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract Nova project
+        run: |
+          unzip -q Nova_AI_MOBILE_GITHUB_v72_2_FIXED_READY.zip
+          mv Nova_AI_MOBILE_GITHUB_v72_2_ONE_PACKAGE nova_project
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Build APK
+        working-directory: nova_project
+        run: gradle assembleDebug --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nova-debug-APK
+          path: nova_project/app/build/outputs/apk/debug/app-debug.apk
