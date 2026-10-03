@@ -1,0 +1,19 @@
+name: quran_seekho
+publish_to: 'none'
+version: 2.2.0+7
+description: Quran Seekho - offline Quran reader with bookmarks, resume, progress and privacy screens
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.5.3
+  just_audio: ^0.10.4
+  path_provider: ^2.1.5
+  http: ^1.5.0
+  flutter_tts: ^4.2.3
+  speech_to_text: ^7.0.0
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/quran_uthmani.json
